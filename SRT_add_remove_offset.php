@@ -66,6 +66,8 @@ function do_conversion_main($file_name, $offset)
         $new_line = identify_process_line($line, $offset);
         $processed_srt_contents .= $new_line . PHP_EOL;
     }
+    // change EOL to windows, by https://stackoverflow.com/questions/7836632/how-to-replace-different-newline-styles-in-php-the-smartest-way:
+    $processed_srt_contents = preg_replace('~\R~u', "\r\n", $processed_srt_contents);
     //
     if ( @file_put_contents($file_name, $processed_srt_contents) === FALSE)
     {
